@@ -38,7 +38,7 @@ contract Auction {
 
         // Setting the new highest bid 
         highestBid = Bid({
-            bidder: msg.sender,
+            bidder: payable(msg.sender),
             amount: msg.value
         });
 
