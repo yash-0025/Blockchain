@@ -10,8 +10,8 @@ import "@openzeppelin/contracts@4.7.3/utils/Counters.sol";
 contract NGX is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
-    Counters.Counter private_tokenIdCounter;
-
+    Counters.Counter private _tokenIdCounter;
+ 
     constructor() ERC721("NightOwl", "NO") {}
 
     function _baseURI() internal pure override returns (string memory) {
@@ -31,7 +31,7 @@ contract NGX is ERC721, ERC721URIStorage, Ownable {
         _safeMint(msg.sender, tokenId);
     }
 
-    function burn(uint256 tokenid) internal override(ERC721, ERC721URIStorage) {
-        super._burn(tokenid);
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
     }
 }
