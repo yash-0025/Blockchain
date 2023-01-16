@@ -18,7 +18,7 @@ contract DutchAuction {
 
     // Declaring instance of the NFT contract
     IERC721 public immutable nft;
-    uint public immutable mftId;
+    uint public immutable nftId;
 
     //  Variable for starting and ending auction
     address payable public immutable seller;
@@ -45,8 +45,8 @@ contract DutchAuction {
         startingPrice = _startingPrice;
 
         //  Declaring time variables
-        startAt = block.timestamp; // This will start the auction when the contract get deployed
-        expiresAt = block.timestamp + DURATION ;
+        startingTime = block.timestamp; // This will start the auction when the contract get deployed
+        endingTime = block.timestamp + DURATION ;
 
         discountRate = _discountRate;
 
@@ -55,6 +55,29 @@ contract DutchAuction {
         nft = IERC721(_nft);
         nftId = _nftId;
 
+    }
+
+    function getPrice() public view returns(uint) {
+        uint timeElapsed = block.timestamp - startingTime;
+        uint discount = discountRate * timeElapsed;
+        return startingPrice - discount;
+    }
+
+    function buy() external payable {
+        require(block.timestamp < endingTime, "Auction is already ended");
+        uint price = getPrice();
+
+        require(msg.value >= price,"You should have more ETH then the price.");
+
+        nft.transferFrom(seller,msg.sender, nftId);
+        uint refund = msg.value - price;
+        if (refund > 0) {
+            payable(msg.sender).transfer(refund);
+        } 
+        emit sold(msg.sender, msg.value);
+
+        // We can destroy the contract after the sale is completed
+        selfdestruct(seller);
     }
 
 }
