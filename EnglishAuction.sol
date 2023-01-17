@@ -7,6 +7,7 @@ interface IERC721 {
     function transferFrom(address, address, uint) external;
 }
 
+
 contract EnglishAuction{
 
     // Events in the Auction
