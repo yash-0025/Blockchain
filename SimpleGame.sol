@@ -58,6 +58,9 @@ contract Game {
         // Set the ongoing game to false to stop the game
         gameOnGoing = false;
 
+
+
+
      //  Determining the winner
      address winner;
      uint maxScore =0;
