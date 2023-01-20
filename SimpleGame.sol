@@ -59,8 +59,6 @@ contract Game {
         gameOnGoing = false;
 
 
-
-
      //  Determining the winner
      address winner;
      uint maxScore =0;
