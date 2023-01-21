@@ -70,6 +70,7 @@ contract Game {
      }
 
      // Award the winner
+     
      winner.transfer(this.balance);
     }
 
