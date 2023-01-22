@@ -6,7 +6,7 @@ contract SupplyChain {
     // Creating structure of the product
     struct Product {
         address currentOwner;
-        uint[] previousOwners;
+        address[] previousOwners;
         string[] history;
     }
 
@@ -18,7 +18,7 @@ contract SupplyChain {
         // Setting the initial product info
         products[id] = Product({
             currentOwner: msg.sender,
-            previousOwners: new uint[](0),
+            previousOwners: new address[](0),
             history: new string[](1)
         });
         // Adding the initial history item
@@ -48,7 +48,7 @@ contract SupplyChain {
     }
 
     // Function to check Previous owner of the product
-    function checkPreviousOwners(uint id) public view returns (uint[] memory) {
+    function checkPreviousOwners(uint id) public view returns (address[] memory) {
         return products[id].previousOwners;
     }
 
