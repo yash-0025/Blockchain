@@ -52,7 +52,8 @@ contract SupplyChain {
         return products[id].previousOwners;
     }
 
-    // Function to get the history of the Product
+
+    // Function to get the history of the Product .
     function getHistory(uint id) public view returns (string[] memory) {
         return products[id].history;
     }
