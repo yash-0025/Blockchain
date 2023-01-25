@@ -6,7 +6,7 @@ contract FinanceChain {
 
     // Structure for the finance Request
     struct FinanceRequester {
-        address borrower;
+        address payable borrower;
         uint amount;
         bool funded;
     }
@@ -26,10 +26,10 @@ contract FinanceChain {
     //  Function for requesting funds
     function requestFinance(uint amount) public {
         //  Generating the unique id for the finance request
-        uint id = keccak256(abi.encodePacked(msg.sender,now,amount));
+        uint id = uint256(keccak256(abi.encodePacked(msg.sender,block.timestamp,amount)));
     // Updating the finance request info
     financeRequests[id]  = FinanceRequester({
-        borrower: msg.sender,
+        borrower:payable(msg.sender),
         amount: amount,
         funded: false
     });
@@ -39,7 +39,7 @@ contract FinanceChain {
     function offerFinance(uint amount, uint interestRate) public {
         // Generating unique id for the finance offer
 
-        uint id = keccak256(abi.encodePacked(msg.sender,now,amount,interestRate));
+        uint id = uint256(keccak256(abi.encodePacked(msg.sender,block.timestamp,amount,interestRate)));
 
         // Setting up the offer 
         financeOffers[id] = FinanceOfferer({
