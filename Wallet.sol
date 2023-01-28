@@ -17,6 +17,7 @@ contract SimpleWallet {
         require(msg.sender == wallet,"Only the wallet can send Ether.");
         _to.transfer(_value);
     }
+    
 
     function receiveEther() public payable {
         require(msg.sender == wallet,"ONly wallet can receive ether");
