@@ -4,8 +4,10 @@ pragma solidity ^0.8.5;
 
 contract SimpleWallet {
 
+
+
     //  Address of the wallet
-    address public wallet;
+    address payable public wallet;
 
     // function to initiliaze wallet
     function initialize() public {
@@ -13,7 +15,7 @@ contract SimpleWallet {
     }
 
     // function to send Ether from wallet
-    function sendEther(address _to, uint _value) public{
+    function sendEther(address _to, uint _value) public payable{
         require(msg.sender == wallet,"Only the wallet can send Ether.");
         _to.transfer(_value);
     }
